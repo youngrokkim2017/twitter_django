@@ -31,23 +31,23 @@
                                 </a>
                             {% endfor %}
                         </p>
-                  </div>
+                    </div>
                 </div>
-                <!-- <strong>Follows</strong>
                 <br />
-                {% for following in profile.follows.all %}
-                    <a href="{% url 'profile' following.user.id %}">
-                        @{{ follow }}<br />
-                    </a>
-                {% endfor %}
-                <br />
-                <strong>Followed By</strong>
-                <br />
-                {% for following in profile.followed_by.all %}
-                    <a href="{% url 'profile' following.user.id %}">
-                        @{{ follow }}<br />
-                    </a>
-                {% endfor %} -->
+                <form method=POST>
+                    {% csrf_token %}
+                    {% if profile in user.profile.follows.all %}
+                        <!-- UNFOLLOW HIM/HER -->
+                        <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit">
+                            Unfollow @{{ profile.user.username|lower }}
+                        </button>
+                    {% else %}
+                        <!-- FOLLOW -->
+                        <button class="btn btn-outline-success" name="follow" value="follow" type="submit">
+                            Follow @{{ profile.user.username|lower }}
+                        </button>
+                    {% endif %}
+                </form>
             </div>
         </div>
     </div>
