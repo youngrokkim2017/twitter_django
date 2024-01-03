@@ -2,4 +2,12 @@
 
 {% block content  %}
     <h1>Tea</h1>
+    <br />
+    {% for tea in teas %}
+        <div class="alert alert-dark" role="alert">
+          {{ tea }}
+        </div>
+        <br />
+        <br />
+    {% endfor %}
 {% endblock %}
