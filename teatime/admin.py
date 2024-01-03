@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
-from .models import Profile
+from .models import Profile, Tea 
 
 # Register your models here.
 
@@ -26,3 +26,6 @@ admin.site.unregister(User)
 # Reregister User
 admin.site.register(User, UserAdmin)
 # admin.site.register(Profile)
+
+# Register Tea
+admin.site.register(Tea)
