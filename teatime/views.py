@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 from .models import Profile, Tea
 from .forms import TeaForm
@@ -54,3 +55,6 @@ def profile(request, pk):
     else:
         messages.success(request, ("You must be logged in to view this page..."))
         return redirect('home')
+
+def login_user(request):
+    return render(request, "login.html", {})
