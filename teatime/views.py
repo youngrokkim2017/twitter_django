@@ -2,14 +2,26 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from .models import Profile, Tea
+from .forms import TeaForm
 
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
+        form = TeaForm(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                tea = form.save(commit=False)
+                tea.user = request.user
+                tea.save()
+                messages.success(request, ("Your Tea has been posted!"))
+                return redirect('home')
+
         teas = Tea.objects.all().order_by("-created_at")
+        return render(request, 'home.html', {"teas": teas, "form": form})
+    else:
+        teas = Tea.objects.all().order_by("-created_at")
+        return render(request, 'home.html', {"teas": teas})
 
-
-    return render(request, 'home.html', {"teas": teas})
 
 def profile_list(request):
     if request.user.is_authenticated:
