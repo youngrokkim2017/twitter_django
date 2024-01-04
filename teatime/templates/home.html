@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content  %}
-    <h1>Tea</h1>
-    <br />
-    {% for tea in teas %}
-        <div class="alert alert-dark" role="alert">
-          {{ tea }}
+<div class="container text-center">
+    <div class="row">
+        <div class="col-8">
+            <h1>Tea</h1>
+            <br />
+            {% for tea in teas %}
+                <div class="alert alert-dark" role="alert">
+                    {{ tea }}
+                </div>
+                <br /><br />
+            {% endfor %}
         </div>
-        <br />
-        <br />
-    {% endfor %}
+        <div class="col-4">
+            <br /><br /><br />
+            <form method=POST>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">What's the Tea!</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
