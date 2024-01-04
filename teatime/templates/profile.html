@@ -10,7 +10,11 @@
                 {% if teas %}
                     {% for tea in teas %}
                         <div class="alert alert-dark" role="alert">
-                            {{ tea }}
+                            {{ tea.body }}
+                            <br />
+                            <small class="text-muted">
+                                {{ text.created_at }} By @{{ tea.user.username }}
+                            </small>
                         </div>
                         <br />
                         <br />

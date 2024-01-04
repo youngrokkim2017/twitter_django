@@ -8,7 +8,11 @@
             <br />
             {% for tea in teas %}
                 <div class="alert alert-dark" role="alert">
-                    {{ tea }}
+                    {{ tea.body }}
+                    <br />
+                    <small class="text-muted">
+                        {{ text.created_at }} By @{{ tea.user.username }}
+                    </small>
                 </div>
                 <br /><br />
             {% endfor %}
@@ -19,7 +23,7 @@
             <form method=POST>
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-secondary">What's the Tea!</button>
+                <button type="submit" class="btn btn-secondary">Post the Tea!</button>
             </form>
             {% endif %}
         </div>
