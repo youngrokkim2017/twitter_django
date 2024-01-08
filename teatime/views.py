@@ -98,3 +98,6 @@ def register_user(request):
             return redirect('home')
     
     return render(request, "register.html", {'form': form})
+
+def update_user(request):
+    return render(request, "update_user.html", {})
