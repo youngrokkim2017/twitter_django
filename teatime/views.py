@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms 
+from django.contrib.auth.models import User
 
 from .models import Profile, Tea
 from .forms import TeaForm, SignUpForm
@@ -101,7 +102,15 @@ def register_user(request):
 
 def update_user(request):
     if request.user.is_authenticated:
-        return render(request, "update_user.html", {})
+        current_user = User.objects.get(id=request.user.id)
+        form = SignUpForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            # django logs you out after update, re login
+            login(request, current_user)
+            messages.success(request, ("Your profile has been updated!"))
+            return redirect('home')
+        return render(request, "update_user.html", {'form': form  })
     else:
         messages.success(request, ("You must be logged in to view that page"))
         return redirect('home')
