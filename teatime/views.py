@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -117,6 +117,20 @@ def update_user(request):
             messages.success(request, ("Your profile has been updated!"))
             return redirect('home')
         return render(request, "update_user.html", {'user_form': user_form, 'profile_form': profile_form })
+    else:
+        messages.success(request, ("You must be logged in to view that page"))
+        return redirect('home')
+
+def tea_like(request, pk):
+    if request.user.is_authenticated:
+        tea = get_object_or_404(Tea, id=pk)
+        if tea.likes.filter(id=request.user.id):
+            tea.likes.remove(request.user)
+        else:
+            tea.likes.add(request.user)
+        
+        return redirect('home')
+
     else:
         messages.success(request, ("You must be logged in to view that page"))
         return redirect('home')
