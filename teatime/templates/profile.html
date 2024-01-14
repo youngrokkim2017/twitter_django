@@ -36,6 +36,12 @@
                                         <br />
                                         <small class="text-muted">
                                             {{ text.created_at }} By @{{ tea.user.username }}
+                                            - {{ tea.number_of_likes }} Likes - 
+                                            {% if user in tea.likes.all %}
+                                                <a href="{% url 'tea_like' tea.id %}">Unlike</a>
+                                            {% else %}
+                                                <a href="{% url 'tea_like' tea.id %}">Like</a>
+                                            {% endif%}
                                         </small>
                                     </div>
                                     <br />
