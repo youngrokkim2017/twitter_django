@@ -36,9 +36,13 @@
                                     {{ text.created_at }} By @{{ tea.user.username }}
                                     - {{ tea.number_of_likes }} Likes - 
                                     {% if user in tea.likes.all %}
-                                        <a href="{% url 'tea_like' tea.id %}">Unlike</a>
+                                        <a href="{% url 'tea_like' tea.id %}">
+                                            <i class="fa-solid fa-heart" style="color:red"></i>                                            
+                                        </a>
                                     {% else %}
-                                    <a href="{% url 'tea_like' tea.id %}">Like</a>
+                                    <a href="{% url 'tea_like' tea.id %}">
+                                        <i class="fa fa-heart-o" style="color:red"></i>
+                                    </a>
                                     {% endif%}
                                 </small>
                             </div>
