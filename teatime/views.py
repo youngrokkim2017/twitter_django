@@ -134,3 +134,13 @@ def tea_like(request, pk):
     else:
         messages.success(request, ("You must be logged in to view that page"))
         return redirect('home')
+    
+def tea_show(request, pk):
+    tea = get_object_or_404(Tea, id=pk)
+
+    if tea:
+        return render(request, "show_tea.html", {"tea": tea})
+    else:
+        messages.success(request, ("Post does not exist"))
+        return redirect('home')
+    

@@ -34,7 +34,9 @@
                                 <br />
                                 <small class="text-muted">
                                     {{ text.created_at }} By @{{ tea.user.username }}
-                                    - {{ tea.number_of_likes }} Likes - 
+                                    &nbsp;
+                                    &nbsp;
+                                    {{ tea.number_of_likes }}
                                     {% if user in tea.likes.all %}
                                         <a href="{% url 'tea_like' tea.id %}">
                                             <i class="fa-solid fa-heart" style="color:red"></i>                                            
@@ -44,6 +46,12 @@
                                         <i class="fa fa-heart-o" style="color:red"></i>
                                     </a>
                                     {% endif%}
+                                    &nbsp;
+                                    &nbsp;
+                                    <!-- link for post show -->
+                                    <a href="{% url 'tea_show' tea.id %}">
+                                        <i class="fa-solid fa-share" style="color:gray"></i>
+                                    </a>
                                 </small>
                             </div>
                             <br /><br />
