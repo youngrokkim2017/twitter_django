@@ -59,6 +59,21 @@ def profile(request, pk):
         messages.success(request, ("You must be logged in to view this page..."))
         return redirect('home')
 
+def unfollow(request, pk):
+    if request.user.is_authenticated:
+        #  get profile to unfollow
+        profile = Profile.objects.get(user_id=pk)
+        # unfollow user
+        request.user.profile.follows.remove(profile)
+        # save updated profile
+        request.user.profile.save()
+        # return message
+        messages.success(request, (f"You have successfully unfollowed {profile.user.username}"))
+        return redirect(request.META.get("HTTP_REFERER"))
+    else:
+        messages.success(request, ("You must be logged in to view this page..."))
+        return redirect('home')
+
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']

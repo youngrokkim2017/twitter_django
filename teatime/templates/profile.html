@@ -118,7 +118,7 @@
                                 <a href="{% url 'profile' following.user.id %}">
                                     @{{ following }}<br />
                                 </a>
-                                <a href="#">
+                                <a href="{% url 'unfollow' following.user.id %}">
                                     <i class="fa fa-undo small" style="color:gray"></i>
                                 </a>
                             {% endfor %}
