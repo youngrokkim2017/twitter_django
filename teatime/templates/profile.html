@@ -119,7 +119,7 @@
                                     @{{ following }}<br />
                                 </a>
                                 <a href="{% url 'unfollow' following.user.id %}">
-                                    <i class="fa fa-undo small" style="color:gray"></i>
+                                    <i class="fa fa-user-minus small" style="color:gray"></i>
                                 </a>
                             {% endfor %}
                         </p>
@@ -138,9 +138,9 @@
                                 <!-- check if following -->
                                 {% if following in profile.follows.all %}
                                     <!-- UNFOLLOW -->
-                                    <a href="{% url 'unfollow' following.user.id %}">
+                                    <!-- <a href="{% url 'unfollow' following.user.id %}">
                                         <i class="fa fa-user-minus small" style="color:gray"></i>
-                                    </a>
+                                    </a> -->
                                 {% else %}
                                     <!-- FOLLOW -->
                                     <a href="{% url 'follow' following.user.id %}">
