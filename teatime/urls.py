@@ -12,4 +12,5 @@ urlpatterns = [
     path('tea_like/<int:pk>', views.tea_like, name="tea_like"),
     path('tea_show/<int:pk>', views.tea_show, name="tea_show"),
     path('unfollow/<int:pk>', views.unfollow, name="unfollow"),
+    path('follow/<int:pk>', views.follow, name="follow"),
 ]
