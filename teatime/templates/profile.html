@@ -130,7 +130,7 @@
                     <h5 class="card-header">Followed By</h5>
                     <div class="card-body">
                         <p class="card-text">
-                            {% for following in profile.followed_by.all %}
+                            {% for following in profile.followed_by.all|slice:3 %}
                                 <a href="{% url 'profile' following.user.id %}">
                                     @{{ following }}<br />
                                 </a>
@@ -142,7 +142,13 @@
                                     </a>
                                 {% endif %}
                             {% endfor %}
+                            <br />
                         </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'followers' profile.user.id %}">
+                            See all...
+                        </a>
                     </div>
                 </div>
                 <br />
