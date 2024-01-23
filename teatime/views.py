@@ -198,3 +198,10 @@ def tea_show(request, pk):
         messages.success(request, ("Post does not exist"))
         return redirect('home')
     
+def delete_tea(request, pk):
+    if request.user.is_authenticated:
+        tea = get_object_or_404(Tea, id=pk)
+    else:
+        messages.success(request, ("Please log in to continue"))
+        return redirect(request.META.get("HTTP_REFERER"))
+    
