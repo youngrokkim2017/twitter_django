@@ -54,6 +54,13 @@
                                             <a href="{% url 'tea_show' tea.id %}">
                                                 <i class="fa-solid fa-share" style="color:gray"></i>
                                             </a>
+                                            {% if request.user.usernane == profile.user.username %}
+                                                &nbsp;
+                                                &nbsp;
+                                                <a href="{% url 'delete_tea' tea.id %}">
+                                                    <i class="fa fa-trash" style="color:gray"></i>
+                                                </a>
+                                            {% endif %}
                                         </small>
                                     </div>
                                     <br />

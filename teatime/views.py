@@ -201,6 +201,15 @@ def tea_show(request, pk):
 def delete_tea(request, pk):
     if request.user.is_authenticated:
         tea = get_object_or_404(Tea, id=pk)
+        # check if you own the tea
+        if request.user.username == tea.user.username:
+            # delete oist 
+            tea.delete()
+            messages.success(request, ("The tea has been deleted"))
+            return redirect(request.META.get("HTTP_REFERER"))
+        else:
+            messages.success(request, ("This tea does NOT belong to you"))
+            return redirect('home')
     else:
         messages.success(request, ("Please log in to continue"))
         return redirect(request.META.get("HTTP_REFERER"))
