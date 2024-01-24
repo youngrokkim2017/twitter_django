@@ -203,7 +203,7 @@ def delete_tea(request, pk):
         tea = get_object_or_404(Tea, id=pk)
         # check if you own the tea
         if request.user.username == tea.user.username:
-            # delete oist 
+            # delete post 
             tea.delete()
             messages.success(request, ("The tea has been deleted"))
             return redirect(request.META.get("HTTP_REFERER"))
@@ -214,3 +214,26 @@ def delete_tea(request, pk):
         messages.success(request, ("Please log in to continue"))
         return redirect(request.META.get("HTTP_REFERER"))
     
+def edit_tea(request, pk):
+    if request.user.is_authenticated:
+        # assign tea
+        tea = get_object_or_404(Tea, id=pk)
+
+        # check if you own the tea
+        if request.user.username == tea.user.username:
+            form = TeaForm(request.POST or None, instance=tea)
+            if request.method == "POST":
+                if form.is_valid():
+                    tea = form.save(commit=False)
+                    tea.user = request.user
+                    tea.save()
+                    messages.success(request, ("Your Tea has been updated!"))
+                    return redirect('home')
+            else:    
+                return render(request, "edit_tea.html", {'form': form, 'tea': tea })
+        else:
+            messages.success(request, ("This tea does NOT belong to you"))
+            return redirect('home')
+    else:
+        messages.success(request, ("Please log in to continue"))
+        return redirect('home')
