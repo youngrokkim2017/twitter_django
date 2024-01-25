@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %}
+    <h1> Search Tea</h1>
+    <br />
+    <form method=POST>
+        {% csrf_token %}
+        <input type="input" class="form-control" placeholder="Search Tea" name="search">
+        <br /><br />
+        <button type="submit" class="btn btn-secondary">Search Tea</button>
+    </form>
+    <br /><br />
+
+    {% if search %}
+        <h3>Searched For: {{ search }}</h3> 
+
+        {% for tea in searched %}
+            <div class="alert alert-dark" role="alert">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-1">
+                            {% if tea.user.profile.profile_image %}
+                            <img 
+                                src="{{ tea.user.profile.profile_image.url }}" 
+                                width="50"
+                                height="50"
+                                class="rounded-circle"
+                                alt="{{ tea.user.profile.user.username }}"
+                            >
+                            {% else %}
+                            <img 
+                                src="{% static 'images/default_profile_pic.png' %}" 
+                                width="50"
+                                height="50"
+                                class="rounded-circle"
+                                alt="{{ tea.user.profile.user.username }}"
+                            >
+                            {% endif %}
+                        </div>
+                        <div class="col-10">
+                            {{ tea.body }}
+                            <br />
+                            <small class="text-muted">
+                                {{ text.created_at }} By @{{ tea.user.username }}
+                                &nbsp;
+                                &nbsp;
+                                {{ tea.number_of_likes }}
+                                {% if user in tea.likes.all %}
+                                    <a href="{% url 'tea_like' tea.id %}">
+                                        <i class="fa-solid fa-heart" style="color:red"></i>                                            
+                                    </a>
+                                {% else %}
+                                <a href="{% url 'tea_like' tea.id %}">
+                                    <i class="fa fa-heart-o" style="color:red"></i>
+                                </a>
+                                {% endif%}
+                                &nbsp;
+                                &nbsp;
+                                <!-- link for post show -->
+                                <a href="{% url 'tea_show' tea.id %}">
+                                    <i class="fa-solid fa-share" style="color:gray"></i>
+                                </a>
+                            </small>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+        {% endfor %}
+    {% endif %}
+    <br /><br />
+{% endblock %}
