@@ -237,3 +237,16 @@ def edit_tea(request, pk):
     else:
         messages.success(request, ("Please log in to continue"))
         return redirect('home')
+    
+def search(request):
+    if request.method == "POST":
+        # grab query
+        search = request.POST['search']
+
+        # search the database
+        searched = Tea.objects.filter(body__contains = search)
+
+        return render(request, 'search.html', {'search': search, 'searched': searched})
+    else: 
+        return render(request, 'search.html', {})
+        
