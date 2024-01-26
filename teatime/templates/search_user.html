@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %}
+    <h1> Search Users</h1>
+    <br />
+    <form method=POST>
+        {% csrf_token %}
+        <input type="input" class="form-control" placeholder="Search Users" name="search">
+        <br /><br />
+        <button type="submit" class="btn btn-secondary">Search Users</button>
+    </form>
+    <br /><br />
+
+    {% if search %}
+        <h3>Searched For: {{ search }}</h3> 
+        <br />
+    {% endif %}
+
+    {% if searched %}
+        {% for result in searched %}
+
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  {% if result.profile.profile_image %}
+                    <img 
+                      src="{{ result.profile.profile_image }}"
+                      width="200"
+                      height="200"
+                      class="img-fluid rounded-start"
+                      alt="{{ result.profile.user.username }}"
+                    >
+                  {% else %}
+                    <img src="{% static 'images/default_profile_pic.png' %}" class="img-fluid rounded-start" alt="Profile Image">
+                  {% endif %}
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ result.profile.user.username }}</h5>
+                    <p class="card-text">
+                        <a href="{% url 'profile' result.profile.user.id %}">
+                            @{{ result.profile.user.username|lower }}
+                        </a>
+                    </p>
+                    <p class="card-text"><small class="text-body-secondary">Last Updated: {{ result.profile.date_modified }}</small></p>
+                    <br />
+                    <br />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br></br>
+
+            <!-- Username: {{ profile.user.username }}<br />
+            Link: @{{ profile.user.username|lower }}<br />
+            Last Updated: {{ profile.date_modified }}
+            <br></br> -->
+        {% endfor %}
+    <!-- {% else %} -->
+        <!-- No usernames containing {{ search }} exist. Please try again... -->
+    {% endif %}
+    <br /><br />
+{% endblock %}

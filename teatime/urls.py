@@ -18,4 +18,5 @@ urlpatterns = [
     path('delete_tea/<int:pk>', views.delete_tea, name="delete_tea"),
     path('edit_tea/<int:pk>', views.edit_tea, name="edit_tea"),
     path('search/', views.search, name="search"), 
+    path('search_user/', views.search_user, name="search_user"), 
 ]
