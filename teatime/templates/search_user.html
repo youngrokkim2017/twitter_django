@@ -56,8 +56,10 @@
             Last Updated: {{ profile.date_modified }}
             <br></br> -->
         {% endfor %}
-    <!-- {% else %} -->
-        <!-- No usernames containing {{ search }} exist. Please try again... -->
+            {% if searched != None %}
+            <!-- {% else %} -->
+                No usernames containing {{ search }} exist. Please try again...
+            {% endif %}
     {% endif %}
     <br /><br />
 {% endblock %}
